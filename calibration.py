@@ -43,10 +43,11 @@ def calibrate(dirpath, square_size, width, height, visualize=True):
 
             # Draw and display the corners
             img = cv2.drawChessboardCorners(img, (width, height), corners2, ret)
-
+        else:
+            print(f'failed to detect chessboard corners in image: {fname}')
         if visualize:
             cv2.imshow('img',img)
-            cv2.waitKey(0)
+            cv2.waitKey(2000)
 
 
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
@@ -60,7 +61,7 @@ if __name__ == '__main__':
     ap.add_argument("-w", "--width", type=int, help="Width of checkerboard (default=7)",  default=7)
     ap.add_argument("-t", "--height", type=int, help="Height of checkerboard (default=7)", default=7)
     ap.add_argument("-s", "--square_size", type=float, default=1, help="Length of one edge (in metres)")
-    ap.add_argument("-v", "--visualize", type=str, default="False", help="To visualize each checkerboard image")
+    ap.add_argument("-v", "--visualize", type=str, default="True", help="To visualize each checkerboard image")
     args = vars(ap.parse_args())
     
     dirpath = args['dir']
