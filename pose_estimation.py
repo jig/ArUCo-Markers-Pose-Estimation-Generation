@@ -40,7 +40,7 @@ def pose_esitmation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
             cv2.aruco.drawDetectedMarkers(frame, corners) 
 
             # Draw Axis
-            cv2.aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, rvec, tvec, 0.01)  
+            cv2.drawFrameAxes(frame, matrix_coefficients, distortion_coefficients, rvec, tvec, 0.01)  
 
     return frame
 
