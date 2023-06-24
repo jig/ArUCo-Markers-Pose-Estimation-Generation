@@ -1,3 +1,33 @@
+# Capturing Images for camera calibration
+
+This special image capturer is created because sometimes opencv will fail to detect chessboard corners
+in the image which is the pre-requisite for camera calibration. We check whether opencv can detect the chess corners
+even before capturing the image so that calibration does not fail.
+```
+python image_capturer.py
+```
+> Hold a chessboard image infront of your camera. The program will try to detect chessboard corners and if it can, it will show
+it in a new window with corner overlays. Then press 's' key to save the image. The saved image will be shown in another window
+and the terminal will show the count. Capture atleast 10 images from different angles for good calibration.
+N.B: You cannot save image if it cannot detect the chessboard.
+>When done, press ESC to quit the program.
+
+# Calibration
+The file `calibration.py` contains the code necessary for calibrating your camera. This step 
+has several pre-requisites. You need to have a folder containing a set of checkerboard images 
+taken using your camera. Make sure that these checkerboard images are of different poses and 
+orientation. You need to provide the path to this directory and the size of the square in metres. 
+You can also change the shape of the checkerboard pattern using the parameters given. Make sure this
+matches with your checkerboard pattern. This code will generate two numpy files `calibration_matrix.npy` and `distortion_coefficients.npy`. These files are required to execute the next step that involves pose estimation. 
+Note that the calibration and distortion numpy files given in my repository is obtained specifically for my camera 
+and might not work well for yours.   
+
+The command for running is :-  
+`python calibration.py --dir calibration_checkerboard/ --square_size 0.024`
+
+You can find more details on other parameters using `python calibration.py --help`  
+
+
 # ArUCo-Markers-Pose-Estimation-Generation-Python
 
 This repository contains all the code you need to generate an ArucoTag,
@@ -33,22 +63,7 @@ The command for running is :-
 You can find more details on other parameters using `python detect_aruco_images.py --help`
 and `python detect_aruco_video.py --help`
 
-## 3. Calibration
-The file `calibration.py` contains the code necessary for calibrating your camera. This step 
-has several pre-requisites. You need to have a folder containing a set of checkerboard images 
-taken using your camera. Make sure that these checkerboard images are of different poses and 
-orientation. You need to provide the path to this directory and the size of the square in metres. 
-You can also change the shape of the checkerboard pattern using the parameters given. Make sure this
-matches with your checkerboard pattern. This code will generate two numpy files `calibration_matrix.npy` and `distortion_coefficients.npy`. These files are required to execute the next step that involves pose estimation. 
-Note that the calibration and distortion numpy files given in my repository is obtained specifically for my camera 
-and might not work well for yours.   
-
-The command for running is :-  
-`python calibration.py --dir calibration_checkerboard/ --square_size 0.024`
-
-You can find more details on other parameters using `python calibration.py --help`  
-
-## 4. Pose Estimation  
+## 3. Pose Estimation  
 The file `pose_estimation.py` contains the code that performs pose estimation after detecting the 
 ArUCo markers. This is done in real-time for each frame obtained from the web-cam feed. You need to specify 
 the path to the camera calibration matrix and distortion coefficients obtained from the previous step as well 
