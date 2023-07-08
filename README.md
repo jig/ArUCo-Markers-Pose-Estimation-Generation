@@ -1,3 +1,7 @@
+> Updates from original repo: 
+ - Improved image capturer program for easier calibration
+ - Updated method calls for latest version of opencv [ as of July 7, 2023]
+
 # Capturing Images for camera calibration
 
 This special image capturer is created because sometimes opencv will fail to detect chessboard corners
